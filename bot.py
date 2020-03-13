@@ -21,7 +21,7 @@ def command_start(message):
 
 @bot.message_handler(commands=['help'])
 def command_help(message):
-	bot.send_message(message.chat.id, "☁ weather -  .place")
+	bot.send_message(message.chat.id, "☁ Current weather -  .place | Example:  	.London")
 
 
 @bot.message_handler(func=lambda msg: msg.text is not None and msg.text.startswith('.') and not msg.text.endswith('.'))
@@ -39,7 +39,11 @@ def command_weather(message):
 
 	weather = observation.get_weather()
 	temperature = weather.get_temperature('celsius')["temp"]
-	bot.send_message(message.chat.id, "In " + str(parsed_msg[1]) + " is currently " + weather.get_detailed_status() + "\n" + "🌡️  " + str(temperature) + " °C")
+	wind = weather.get_wind()['speed']
+	clouds = weather.get_clouds()
+	humidity = weather.get_humidity()
+	answer = "🏙 In " + str(parsed_msg[1]) + " is currently " + weather.get_detailed_status() + "\n🌡️  " + str(temperature) + " °C" + "\n💨  " + str(wind) + " m/s" + "\n🌫️  " + str(clouds) + " %" + "\n💦  " + str(humidity) + " %"
+	bot.send_message(message.chat.id, answer)
 
 
 while True:

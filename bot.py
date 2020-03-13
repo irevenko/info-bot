@@ -1,8 +1,8 @@
 import telebot
 import pyowm
 import pyowm.exceptions
-import time	
 from secrets import *
+import time	
 
 bot = telebot.TeleBot(TELEG_TOKEN, threaded=False)
 owm = pyowm.OWM(OWM_TOKEN)

@@ -2,7 +2,7 @@ import telebot
 import pyowm
 import pyowm.exceptions
 import time
-import coins
+from utils import coins
 from telebot import types
 from pyowm.exceptions import api_response_error
 from secrets import BOT_TOKEN, OWM_TOKEN

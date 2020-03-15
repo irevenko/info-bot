@@ -2,27 +2,21 @@ import telebot
 import pyowm
 import pyowm.exceptions
 import time
-from utils import coins
 from telebot import types
 from pyowm.exceptions import api_response_error
 from secrets import BOT_TOKEN, OWM_TOKEN
+from utils import coins, methods
 
 bot = telebot.TeleBot(BOT_TOKEN, threaded=False)
 owm = pyowm.OWM(OWM_TOKEN)
 
 
-def find_dot(msg):
-	for i in msg:
-		if '.' in i:
-			return i
-
-
 @bot.message_handler(commands=['start'])
 def command_start(message):
-	bot.send_message(message.chat.id, "🤖 The bot has started!\n⚙ Enter /help to see bot's functions")
 	start_markup = telebot.types.ReplyKeyboardMarkup(True, False)
-	start_markup.row('/start', '/hide_keyboard')
-	start_markup.row('/help', '/weather', '/cryptocoins')
+	start_markup.row('/start', '/help', '/hide_keyboard')
+	start_markup.row('/weather', '/cryptocoins')
+	bot.send_message(message.chat.id, "🤖 The bot has started!\n⚙ Enter /help to see bot's functions")
 	bot.send_message(message.from_user.id, "⌨️ The Keyboard is added!", reply_markup=start_markup)
 
 
@@ -34,7 +28,8 @@ def command_hide_keyboard(message):
 
 @bot.message_handler(commands=['help'])
 def command_help(message):
-	bot.send_message(message.chat.id, "☁ /weather - Current weather in such format: .Toronto or  .Japan\n💎 /cryptocoins - Current Cryptocurrency price")
+	bot.send_message(message.chat.id, "☁ /weather - Current weather forecast in such format: .Toronto or  .Japan\n" \
+									  "💎 /cryptocoins - Current Cryptocurrency price")
 
 
 @bot.message_handler(commands=['weather'])
@@ -45,7 +40,7 @@ def command_weather(message):
 @bot.message_handler(func=lambda msg: msg.text is not None and msg.text.startswith('.') and not msg.text.endswith('.'))
 def command_forecast(message):
 	words = message.text.split()
-	in_text = find_dot(words)
+	in_text = methods.find_dot(words)
 	if in_text == '.':
 		pass
 	else:
@@ -70,7 +65,7 @@ def command_forecast(message):
 @bot.message_handler(commands=['cryptocoins'])
 def command_cryptocoins(message):
 	coins_markup = types.InlineKeyboardMarkup(row_width=2)
-	btc = types.InlineKeyboardButton("Bitcoin(BTC)", callback_data='BTC')
+	btc = types.InlineKeyboardButton("Bitcoin(BTC)", callback_data='BTC') #TODO make shorter with for loop
 	ltc = types.InlineKeyboardButton("Litecoin(LTC)", callback_data='LTC')
 	eth = types.InlineKeyboardButton("Ethereum(ETH)", callback_data='ETH')
 	etc = types.InlineKeyboardButton("Ethereum Classic(ETC)", callback_data='ETC')
@@ -83,7 +78,7 @@ def command_cryptocoins(message):
 
 
 @bot.callback_query_handler(func=lambda call: True)
-def callback_inline(call):
+def callback_cryptocoins(call):
 	try:
 		if call.message:
 			switcher = {
@@ -96,9 +91,9 @@ def callback_inline(call):
 				'DASH': f"💰Dash: ${coins.dash_price}",
 				'XMR': f"💰Monero: {coins.xmr_price[0]}",
 			}
-			resp = switcher.get(call.data)
-			if resp:
-				bot.send_message(call.message.chat.id, resp)
+			response = switcher.get(call.data)
+			if response:
+				bot.send_message(call.message.chat.id, response)
 	except Exception as e:
 		print(repr(e))
 

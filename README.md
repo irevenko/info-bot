@@ -14,7 +14,10 @@ An all-round bot made to learn Python <br />
 * Display current world time ⏲
 
 # Screenshots 📸
-coming soon...
+|   |   |   |
+|:---:|:---:|:---:|
+|<img src="https://i.imgur.com/0C1OUXi.jpg" width="275">|<img src="https://i.imgur.com/BYewMqP.jpg" width="275">|<img src="https://i.imgur.com/ofnEmOy.jpg" width="275">|
+|Start & Help & Keyboard|Time & Weather|Crypto|
 
 # ToDo 📃
 * Add translation command

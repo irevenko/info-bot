@@ -37,7 +37,7 @@ def command_help(message):
 
 @bot.message_handler(commands=['weather'])
 def command_weather(message):
-	weather_sent = bot.send_message(message.chat.id, "🌞 Enter the City or Country\n🖊 In such format:  Toronto  or  japan")
+	weather_sent = bot.send_message(message.chat.id, "🗺 Enter the City or Country\n🔍 In such format:  Toronto  or  japan")
 	bot.register_next_step_handler(weather_sent, send_forecast)
 
 
@@ -46,14 +46,13 @@ def send_forecast(message):
 		get_current_forecast(message.text)
 	except pyowm.exceptions.api_response_error.NotFoundError:
 		bot.send_message(message.chat.id, "❌  Wrong place, check mistakes and try again!")
-
 	forecast = get_current_forecast(message.text)
 	bot.send_message(message.chat.id, forecast)
 
 
 @bot.message_handler(commands=['world_time'])
 def command_world_time(message):
-	world_time_sent = bot.send_message(message.chat.id, '🖊 Enter the Country\n🖊In such format:  Spain or china')
+	world_time_sent = bot.send_message(message.chat.id, '🗺 Enter the City or Country\n🔍 In such format:  Moscow  or  china')
 	bot.register_next_step_handler(world_time_sent, send_time)
 
 
@@ -62,7 +61,6 @@ def send_time(message):
 		get_current_time(message.text)
 	except IndexError:
 		bot.send_message(message.chat.id, "❌ Wrong place, check mistakes and try again")
-
 	current_time = get_current_time(message.text)
 	bot.send_message(message.chat.id, current_time)
 

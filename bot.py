@@ -4,8 +4,8 @@ import pyowm.exceptions
 import time
 from telebot import types
 from pyowm.exceptions import api_response_error
-from secrets import BOT_TOKEN, OWM_TOKEN
-from utils import coins, methods
+from secrets import BOT_TOKEN, OWM_TOKEN  #from config import *
+from utils import weather, crypto_coins, world_time
 
 bot = telebot.TeleBot(BOT_TOKEN, threaded=False)
 owm = pyowm.OWM(OWM_TOKEN)
@@ -15,8 +15,8 @@ owm = pyowm.OWM(OWM_TOKEN)
 def command_start(message):
 	start_markup = telebot.types.ReplyKeyboardMarkup(True, False)
 	start_markup.row('/start', '/help', '/hide_keyboard')
-	start_markup.row('/weather', '/cryptocoins')
-	bot.send_message(message.chat.id, "🤖 The bot has started!\n⚙ Enter /help to see bot's functions")
+	start_markup.row('/weather', '/crypto_coins', '/world_time')
+	bot.send_message(message.chat.id, "🤖 The bot has started!\n⚙ Enter /help to see bot's function's")
 	bot.send_message(message.from_user.id, "⌨️ The Keyboard is added!", reply_markup=start_markup)
 
 
@@ -28,74 +28,68 @@ def command_hide_keyboard(message):
 
 @bot.message_handler(commands=['help'])
 def command_help(message):
-	bot.send_message(message.chat.id, "☁ /weather - Current weather forecast in such format: .Toronto or  .Japan\n" \
-									  "💎 /cryptocoins - Current Cryptocurrency price")
+	bot.send_message(message.chat.id, "☁ /weather - Current weather forecast\n" \
+									  "💎 /crypto_coins - Current Cryptocurrency price")
 
 
 @bot.message_handler(commands=['weather'])
 def command_weather(message):
-	bot.send_message(message.chat.id, "🌞 Enter a City or Country\nIn such format:  .Toronto or  .Japan")
+	sent = bot.send_message(message.chat.id, "🌞 Enter a City or Country\n🖊 In such format:  Toronto  or  Japan")
+	bot.register_next_step_handler(sent, get_forecast)
 
 
-@bot.message_handler(func=lambda msg: msg.text is not None and msg.text.startswith('.') and not msg.text.endswith('.'))
-def command_forecast(message):
-	words = message.text.split()
-	in_text = methods.find_dot(words)
-	if in_text == '.':
-		pass
-	else:
-		parsed_msg = message.text.split('.')
+def get_forecast(message):
 	try:
-		observation = owm.weather_at_place(str(parsed_msg[1]))
+		owm.weather_at_place(message.text)
 	except pyowm.exceptions.api_response_error.NotFoundError:
 		bot.send_message(message.chat.id, "❌  Wrong place, check mistakes and try again!")
-
-	weather = observation.get_weather()
-	temperature = weather.get_temperature('celsius')["temp"]
-	wind = weather.get_wind()['speed']
-	clouds = weather.get_clouds()
-	humidity = weather.get_humidity()
-	forecast_answer = "🏙 In " + str(
-		parsed_msg[1]) + " is currently " + weather.get_detailed_status() + "\n🌡️  " + str(
-		temperature) + " °C" + "\n💨  " + str(wind) + " m/s" + "\n🌫️  " + str(clouds) + " %" + "\n💦  " + str(
-		humidity) + " %"
-	bot.send_message(message.chat.id, forecast_answer)
+	forecast = weather.get_weather(message.text)
+	bot.send_message(message.chat.id, forecast)
 
 
-@bot.message_handler(commands=['cryptocoins'])
-def command_cryptocoins(message):
-	coins_markup = types.InlineKeyboardMarkup(row_width=2)
-	btc = types.InlineKeyboardButton("Bitcoin(BTC)", callback_data='BTC') #TODO make shorter with for loop
-	ltc = types.InlineKeyboardButton("Litecoin(LTC)", callback_data='LTC')
-	eth = types.InlineKeyboardButton("Ethereum(ETH)", callback_data='ETH')
-	etc = types.InlineKeyboardButton("Ethereum Classic(ETC)", callback_data='ETC')
-	xmr = types.InlineKeyboardButton("Monero(XMR)", callback_data='XMR')
-	dash = types.InlineKeyboardButton("Dash(DASH)", callback_data='DASH')
-	zec = types.InlineKeyboardButton("Zcash(ZEC),", callback_data='ZEC')
-	xpr = types.InlineKeyboardButton("Ripple(XPR)", callback_data='XPR')
-	coins_markup.add(btc, ltc, eth, etc, xmr, dash, zec, xpr)
+@bot.message_handler(commands=['crypto_coins'])
+def command_crypto_coins(message):
+	coins_markup = types.InlineKeyboardMarkup(row_width=1)
+	for key, value in crypto_coins.coins.items():
+		coins_markup.add(types.InlineKeyboardButton(text=key, callback_data=value))
 	bot.send_message(message.chat.id, "🏦Choose a coin:", reply_markup=coins_markup)
 
 
 @bot.callback_query_handler(func=lambda call: True)
-def callback_cryptocoins(call):
+def callback_crypto_coins(call):
 	try:
 		if call.message:
 			switcher = {
-				'BTC': f"💰Bitcoin: ${coins.btc_price}",
-				'ETH': f"💰Ethereum: ${coins.eth_price}",
-				'LTC': f"💰Litecoin: ${coins.ltc_price}",
-				'ETC': f"💰Ethereum Classic: ${coins.etc_price}",
-				'ZEC': f"💰Zcash: ${coins.zec_price}",
-				'XPR': f"💰Ripple: ${coins.xrp_price}",
-				'DASH': f"💰Dash: ${coins.dash_price}",
-				'XMR': f"💰Monero: {coins.xmr_price[0]}",
+				'BTC': f"💰Bitcoin: ${crypto_coins.btc_price}",
+				'LTC': f"💰Litecoin: ${crypto_coins.ltc_price}",
+				'ETH': f"💰Ethereum: ${crypto_coins.eth_price}",
+				'ETC': f"💰Ethereum Classic: ${crypto_coins.etc_price}",
+				'ZEC': f"💰Zcash: ${crypto_coins.zec_price}",
+				'DASH': f"💰Dash: ${crypto_coins.dash_price}",
+				'XRP': f"💰Ripple: ${crypto_coins.xrp_price}",
+				'XMR': f"💰Monero: {crypto_coins.xmr_price[0]}"
 			}
 			response = switcher.get(call.data)
 			if response:
 				bot.send_message(call.message.chat.id, response)
 	except Exception as e:
 		print(repr(e))
+
+
+@bot.message_handler(commands=['world_time'])
+def command_world_time(message):
+	sent = bot.send_message(message.chat.id, '🖊 Enter the Country')
+	bot.register_next_step_handler(sent, send_time)
+
+
+def send_time(message):
+	try:
+		world_time.get_time(message.text)
+	except IndexError:
+		bot.send_message(message.chat.id, "❌ Mistype or not a country, check mistakes and try again")
+
+	current_time = world_time.get_time(message.text)
+	bot.send_message(message.chat.id, current_time)
 
 
 while True:

@@ -1,7 +1,6 @@
 import requests
 import bs4 #For Monero price only, becouse API doesn't work for this coin
 
-
 r = requests.get('https://www.coingecko.com/en/coins/monero')
 soup = bs4.BeautifulSoup(r.text, "html.parser")
 xmr_price = soup.find_all('span', {'class': 'no-wrap'})[0].find_all(text=True, recursive=True)
@@ -34,3 +33,13 @@ xrp_response = requests.get("https://api.coinbase.com/v2/prices/XRP-USD/spot")
 xrp_data = xrp_response.json()
 xrp_price = xrp_data["data"]["amount"]
 
+coins = {
+	"Bitcoin(BTC)": "BTC",
+	"Litecoin(LTC)": "LTC",
+	"Ethereum(ETH)": "ETH",
+	"Ethereum Classic(ETC)": "ETC",
+	"Zcash(ZEC)": "ZEC",
+	"Dash(DASH)": "DASH",
+	"Ripple(XPR)": "XRP",
+	"Monero(XMR)": "XMR"
+}

@@ -12,13 +12,15 @@ An all-round bot made to learn Python <br />
 * Display current weather forecast 🌄
 * Display current cryptocurrency price 💸
 * Display current world time ⏲
+* Display current top companies stocks price 📈
 
 # Screenshots 📸
 |   |   |   |
 |:---:|:---:|:---:|
-|<img src="https://i.imgur.com/0C1OUXi.jpg" width="275">|<img src="https://i.imgur.com/BYewMqP.jpg" width="275">|<img src="https://i.imgur.com/ofnEmOy.jpg" width="275">|
+|<img src="https://i.imgur.com/yZErDCr.jpg" width="275">|<img src="https://i.imgur.com/r8I50Rp.jpg" width="275">|<img src="https://i.imgur.com/sSp9UM8.jpg" width="275">|
 |Start & Help & Keyboard|Time & Weather|Crypto|
-
+<img src="https://i.imgur.com/lak18ji.jpg" width="275">|
+|Stocks|
 # ToDo 📃
 * Add translation command
 * Add some other various commands...
@@ -27,7 +29,7 @@ An all-round bot made to learn Python <br />
 # What I Learned 🧠
 * How to work with API's (pyowm)
 * How to work with JSON's (parsed coinmarket)
-* How to parse a site (with Beatiful Soup)
+* How to parse a site (yahoo finance with Beatiful Soup)
 * How HTTP/HTTPS works
 * Function Decorators 
 * Lambda Functions

@@ -4,7 +4,7 @@ from secrets import OWM_TOKEN
 owm = pyowm.OWM(OWM_TOKEN)
 
 
-def get_current_forecast(place):
+def get_forecast(place):
 	observation = owm.weather_at_place(place)
 	weather = observation.get_weather()
 	temperature = weather.get_temperature('celsius')["temp"]

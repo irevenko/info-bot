@@ -4,14 +4,17 @@ import pyowm.exceptions
 import time
 from telebot import types
 from pyowm.exceptions import api_response_error
-from secrets import BOT_TOKEN, OWM_TOKEN  #from config import *
-from utils.weather import get_current_forecast
-from utils.world_time import get_current_time
+from newsapi import NewsApiClient
+from secrets import BOT_TOKEN, OWM_TOKEN, NEWS_TOKEN  #from config import *
+from utils.weather import get_forecast
+from utils.world_time import get_time
+from utils.news import get_article
 from utils.stocks import *
 from utils.crypto_coins import *
 
 bot = telebot.TeleBot(BOT_TOKEN, threaded=False)
 owm = pyowm.OWM(OWM_TOKEN)
+api = NewsApiClient(api_key=NEWS_TOKEN)
 
 
 @bot.message_handler(commands=['start'])
@@ -19,7 +22,7 @@ def command_start(message):
 	start_markup = telebot.types.ReplyKeyboardMarkup(resize_keyboard=True, one_time_keyboard=False)
 	start_markup.row('/start', '/help', '/hide')
 	start_markup.row('/weather', '/crypto', '/world_time')
-	start_markup.row('/stocks')
+	start_markup.row('/stocks', '/news')
 	bot.send_message(message.chat.id, "🤖 The bot has started!\n⚙ Enter /help to see bot's function's")
 	bot.send_message(message.from_user.id, "⌨️ The Keyboard is added!\n⌨️ /hide To remove kb ", reply_markup=start_markup)
 
@@ -35,7 +38,8 @@ def command_help(message):
 	bot.send_message(message.chat.id, "☁ /weather - current weather forecast\n" 
 									  "💎 /crypto - current cryptocoins price\n" 
 									"⌛️ /world_time - current time in any place\n" 
-									"📊 /stocks - current stocks prices")
+									"📊 /stocks - current stocks prices\n"
+									"📰 /news - latest bbc article")
 
 
 @bot.message_handler(commands=['weather'])
@@ -46,10 +50,10 @@ def command_weather(message):
 
 def send_forecast(message):
 	try:
-		get_current_forecast(message.text)
+		get_forecast(message.text)
 	except pyowm.exceptions.api_response_error.NotFoundError:
 		bot.send_message(message.chat.id, "❌  Wrong place, check mistakes and try again!")
-	forecast = get_current_forecast(message.text)
+	forecast = get_forecast(message.text)
 	bot.send_message(message.chat.id, forecast)
 
 
@@ -61,10 +65,10 @@ def command_world_time(message):
 
 def send_time(message):
 	try:
-		get_current_time(message.text)
+		get_time(message.text)
 	except IndexError:
 		bot.send_message(message.chat.id, "❌ Wrong place, check mistakes and try again")
-	current_time = get_current_time(message.text)
+	current_time = get_time(message.text)
 	bot.send_message(message.chat.id, current_time)
 
 
@@ -114,6 +118,12 @@ def callback_crypto_stocks(call):
 		coin_response = coins_switcher.get(call.data)
 		if coin_response:
 			bot.send_message(call.message.chat.id, coin_response)
+
+
+@bot.message_handler(commands=['news'])
+def command_news(message):
+	bot.send_message(message.chat.id, "🆕 Latest BBC article:\n")
+	bot.send_message(message.chat.id, get_article(), parse_mode='HTML')
 
 
 while True:

@@ -2,4 +2,4 @@ requests==2.23.0
 pyowm==2.10.0
 beautifulsoup4==4.8.2
 pyTelegramBotAPI==3.6.7
-newsapi==0.2.6
+googletrans==2.4.0

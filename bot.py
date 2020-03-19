@@ -15,7 +15,7 @@ from googletrans import Translator
 from flask import Flask, request
 
 
-TOKEN = BOT_TOKEN
+TOKEN = '<817328380:AAEaNmMEh5Hwq7HjZf4yo2aO73L3A7oGQqM>'
 bot = telebot.TeleBot(BOT_TOKEN, threaded=False)
 owm = pyowm.OWM(OWM_TOKEN)
 trans = Translator()

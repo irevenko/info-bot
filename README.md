@@ -1,6 +1,6 @@
 # InfoBot 🤖
 An all-round bot made to learn Python <br />
-[Telegram link](https://t.me/info2019_bot) or @info2019_bot (Currently RIP)
+[Telegram link](https://t.me/info2019_bot) or @info2019_bot 
 
 # This bot is written using ✏️
 * [pyTelegramBotAPI](https://github.com/eternnoir/pyTelegramBotAPI)
@@ -11,8 +11,8 @@ An all-round bot made to learn Python <br />
 
 # What can this bot do❓
 * Display current weather forecast 🌄
-* Display current world time ⏲
-* Display current cryptocurrency price 💸
+* Display current world time at any place ⏲
+* Display current crypto coins price 💸
 * Display current top companies stocks price 📈
 * Display latest BBC news 📰
 * Translate from English 🔀
@@ -38,4 +38,20 @@ An all-round bot made to learn Python <br />
 * Try Except, Dictionaries, imports
 
 # How To Install 🔨
-coming soon...
+1) ``` Make sure you have python3 ```
+
+2) ``` Register your bot at @BotFather in Telegram and add commands``` <br />
+    ```Get API key at openweathermap.org  ``` <br />
+
+3) ``` git clone https://github.com/irevenko/InfoBot.git``` <br />
+    ```cd InfoBot ``` <br />
+
+    ```pip install requirements.txt ``` <br />
+    ```OR```<br />
+    ```python -m pip install -r requirements.txt```<br />
+
+   ``` go to config.py and fill tokens```<br />
+    ```BOT_TOKEN = ' '```<br />
+    ```OWM_TOKEN = ' '```<br />
+
+    ```py bot.py```

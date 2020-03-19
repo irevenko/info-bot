@@ -16,7 +16,7 @@ from flask import Flask, request
 
 
 TOKEN = '817328380:AAEaNmMEh5Hwq7HjZf4yo2aO73L3A7oGQqM'
-bot = telebot.TeleBot(TOKEN, threaded=False)
+bot = telebot.TeleBot(TOKEN)
 owm = pyowm.OWM(OWM_TOKEN)
 trans = Translator()
 server = Flask(__name__)

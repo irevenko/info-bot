@@ -1,6 +1,7 @@
 # InfoBot 🤖
 An all-round bot made to learn Python <br />
 [Telegram link](https://t.me/info2019_bot) or @info2019_bot 
+Deployed bot on Heroku
 
 # This bot is written using ✏️
 * [pyTelegramBotAPI](https://github.com/eternnoir/pyTelegramBotAPI)

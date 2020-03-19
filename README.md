@@ -25,18 +25,6 @@ An all-round bot made to learn Python <br />
 <img src="https://i.imgur.com/yFqudtu.png" width="275">|<img src="https://i.imgur.com/sLCDNrQ.png" width="275">|<img src="https://i.imgur.com/3uLkArO.png" width="275">|
 |Stocks|News|Translator
 
-# ToDo 📃
-* Deploy on Heroku
-
-# What I Learned 🧠
-* How to work with API's (pyowm)
-* How to work with JSON's (parsed coinmarket)
-* How to parse a site (yahoo finance + google search for time  with Beatiful Soup)
-* How HTTP/HTTPS works
-* Function Decorators 
-* Lambda Functions
-* Try Except, Dictionaries, imports
-
 # How To Install 🔨
 1) ``` Make sure you have python3 ```
 
@@ -55,3 +43,15 @@ An all-round bot made to learn Python <br />
     ```OWM_TOKEN = ' '```<br />
 
     ```py bot.py```
+
+
+# What I Learned 🧠
+* How to work with API's (pyowm)
+* How to work with JSON's (parsed coinmarket)
+* How to parse a site (yahoo finance + google search for time  with Beatiful Soup)
+* How HTTP/HTTPS works
+* Function Decorators 
+* Lambda Functions
+* Try Except, Dictionaries, imports
+
+

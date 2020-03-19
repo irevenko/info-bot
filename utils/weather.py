@@ -1,5 +1,5 @@
 import pyowm
-from secrets import OWM_TOKEN
+from config import OWM_TOKEN
 
 owm = pyowm.OWM(OWM_TOKEN)
 
@@ -11,7 +11,5 @@ def get_forecast(place):
 	wind = weather.get_wind()['speed']
 	clouds = weather.get_clouds()
 	humidity = weather.get_humidity()
-	forecast = "🏙 In " + place + " is currently " + weather.get_detailed_status() + "\n🌡️  " + str(
-		 temperature) + " °C" + "\n💨  " + str(wind) + " m/s" + "\n🌫️  " + str(clouds) + " %" + "\n💦  " + str(
-		 humidity) + " %"
+	forecast = f"🏙 In {place} is currently {weather.get_detailed_status()} \n🌡️ {temperature} °C \n💨 {wind} m/s \n🌫️ {clouds} % \n💦 {humidity} %"
 	return forecast

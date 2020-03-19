@@ -31,3 +31,6 @@ def to_ja(words):
 def to_fr(words):
 	t = trans.translate(words, src='en', dest='fr')
 	return t.text
+
+
+languages = ["Russian", "German", "Japanese", "Polish", "Spanish", "French"] 

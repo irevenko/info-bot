@@ -1,13 +1,13 @@
 # InfoBot 🤖
 An all-round bot made to learn Python <br />
-[Telegram link](https://t.me/info2019_bot) or @info2019_bot 
-Deployed bot on Heroku
+[Telegram link](https://t.me/info2019_bot) or @info2019_bot <br />
+Bot is deployed on Heroku
 
 # This bot is written using ✏️
 * [pyTelegramBotAPI](https://github.com/eternnoir/pyTelegramBotAPI)
 * [pyowm](https://github.com/csparpa/pyowm) 
 * [coinbase](https://gist.github.com/chris-gong/b24130f5ea0c6c93e3c24bfb4aca27fd)
-* [bs4](https://www.crummy.com/software/BeautifulSoup/bs4/doc/) + [requests](https://requests.readthedocs.io/en/master/) (for scrapping the Monero coin price & for current time scrapping & for stocks scrapping) 
+* [bs4](https://www.crummy.com/software/BeautifulSoup/bs4/doc/) + [requests](https://requests.readthedocs.io/en/master/) (for scrapping the Monero coin price & current time scrapping & stocks scrapping & news scrapping) 
 * [googletrans](https://pypi.org/project/googletrans/)
 
 # What can this bot do❓
@@ -48,11 +48,12 @@ Deployed bot on Heroku
 
 # What I Learned 🧠
 * How to work with API's (pyowm)
-* How to work with JSON's (parsed coinmarket)
-* How to parse a site (yahoo finance + google search for time  with Beatiful Soup)
+* How to work with JSON's (coinmarket api)
+* How to scrap a site (yahoo finance + google search for time + BBC news  with Beatiful Soup)
 * How HTTP/HTTPS works
 * Function Decorators 
 * Lambda Functions
 * Try Except, Dictionaries, imports
-
+* How to deploy on heroku
+* Polling and web hooks
 

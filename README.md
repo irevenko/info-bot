@@ -29,23 +29,20 @@ If bot is not working or you found a bug - please contact me in telegram @ireven
 |Stocks|News|Translator
 
 # How To Install 🔨
-1) ``` Make sure you have python3 ```
+``` Register your bot at @BotFather in Telegram and add commands``` <br />
+```Get API key at openweathermap.org  ``` <br />
 
-2) ``` Register your bot at @BotFather in Telegram and add commands``` <br />
-    ```Get API key at openweathermap.org  ``` <br />
+``` git clone https://github.com/irevenko/InfoBot.git``` <br />
+```cd InfoBot ``` <br />
 
-3) ``` git clone https://github.com/irevenko/InfoBot.git``` <br />
-    ```cd InfoBot ``` <br />
-
-    ```pip install requirements.txt ``` <br />
-    ```OR```<br />
-    ```python -m pip install -r requirements.txt```<br />
-
-   ``` go to config.py and fill tokens```<br />
-    ```BOT_TOKEN = ' '```<br />
-    ```OWM_TOKEN = ' '```<br />
-
-    ```py bot.py```
+```pip install requirements.txt ``` <br />
+```OR```<br />
+```python -m pip install -r requirements.txt```<br />
+``` go to config.py and fill tokens```<br />
+```BOT_TOKEN = ' '```<br />
+```OWM_TOKEN = ' '```<br />
+```Then you can launch the bot```
+```py bot.py```
 
 
 # What I Learned 🧠

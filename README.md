@@ -28,7 +28,7 @@ If bot is not working or you found a bug - please contact me in telegram @ireven
 <img src="https://i.imgur.com/yFqudtu.png" width="275">|<img src="https://i.imgur.com/sLCDNrQ.png" width="275">|<img src="https://i.imgur.com/3uLkArO.png" width="275">|
 |Stocks|News|Translator
 
-# How To Install 🔨
+# Quick Start 🚀
 ``` Register your bot at @BotFather in Telegram and add commands``` <br />
 ```Get API key at openweathermap.org  ``` <br />
 
@@ -44,7 +44,6 @@ If bot is not working or you found a bug - please contact me in telegram @ireven
 ```Then you can launch the bot```
 ```py bot.py```
 
-
 # What I Learned 🧠
 * How to work with API's (pyowm)
 * How to work with JSON's (coinmarket api)
@@ -56,3 +55,5 @@ If bot is not working or you found a bug - please contact me in telegram @ireven
 * How to deploy on heroku
 * Polling and web hooks
 
+# License 📑 
+(c) 2020 Ilya Revenko. [MIT License](https://tldrlegal.com/license/mit-license)
